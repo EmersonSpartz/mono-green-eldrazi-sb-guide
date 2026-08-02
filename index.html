@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Mono-Green Eldrazi Ramp SB Guide</title>
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; background:#0d0d0d; color:#e0e0e0; font-size:14px; }
+.top-bar { background:#111; padding:14px 16px 10px; border-bottom:1px solid #222; position:sticky; top:0; z-index:20; }
+.top-bar h1 { font-size:16px; font-weight:700; color:#7ec06a; }
+.top-bar .subtitle { font-size:11px; color:#555; margin-top:2px; }
+.banner { padding:10px 16px; background:#101408; border-bottom:1px solid #1c2412; font-size:11px; color:#8a9a7a; line-height:1.5; }
+.mu { border-bottom:1px solid #181818; }
+.mu-head { display:flex; align-items:center; padding:13px 16px; cursor:pointer; -webkit-tap-highlight-color:transparent; user-select:none; gap:10px; }
+.mu-name { flex:1; font-size:15px; font-weight:600; color:#e8e8e8; }
+.chev { color:#333; font-size:11px; transition:transform .18s; }
+.mu.open .chev { transform:rotate(180deg); }
+.mu-body { display:none; padding:0 12px 14px; }
+.mu.open .mu-body { display:block; }
+.gc { background:#141414; border:1px solid #1f1f1f; border-radius:7px; margin-bottom:8px; overflow:hidden; }
+.gc-head { background:#191919; padding:7px 11px; display:flex; align-items:center; gap:8px; }
+.gc-author { font-size:12px; font-weight:600; }
+.gc-author.sic { color:#58c8b0; } .gc-author.togo { color:#e07040; } .gc-author.mike { color:#7090d8; }
+.gc-author.spike { color:#d878a8; } .gc-author.mengu { color:#d4a040; } .gc-author.claude { color:#9ade7a; }
+.gc.claude { border:1px solid #2c4820; background:#121c0e; }
+.gc.claude .gc-head { background:#17280f; }
+.gc-cols { display:grid; grid-template-columns:1fr 1fr; gap:8px; padding:9px 11px; }
+.col-head { font-size:10px; font-weight:700; letter-spacing:.8px; text-transform:uppercase; margin-bottom:5px; }
+.col-in .col-head { color:#4caf6b; } .col-out .col-head { color:#e05a5a; }
+.c { font-size:12px; padding:2px 0; line-height:1.45; }
+.c.in { color:#b8e8c8; } .c.out { color:#f5b8b8; }
+.c .q { font-weight:700; font-size:11px; color:#e05a5a; margin-right:3px; }
+.c .qi { font-weight:700; font-size:11px; color:#4caf6b; margin-right:3px; }
+.gc-note { padding:6px 11px 8px; border-top:1px solid #1a1a1a; font-size:11px; color:#999; font-style:italic; line-height:1.55; }
+.gszrow { padding:5px 11px 7px; border-top:1px solid #1d2a14; font-size:11px; color:#8fae7a; line-height:1.55; }
+.gszrow .lbl2 { font-size:9px; font-weight:700; letter-spacing:.6px; text-transform:uppercase; color:#5e7a4a; margin-right:5px; }
+.conf { font-size:9px; font-weight:700; letter-spacing:.5px; padding:2px 6px; border-radius:3px; margin-left:auto; }
+.conf.high { background:#1a3a2a; color:#6ad48b; } .conf.medium { background:#3a3a1a; color:#d4c46a; } .conf.low { background:#3a2a1a; color:#d49460; }
+.wish { background:#17130d; border:1px solid #3a2e18; border-radius:7px; margin-bottom:10px; padding:8px 11px 9px; }
+.wish-row { font-size:12px; line-height:1.75; color:#e8dcc4; }
+.wish-row .lbl { font-size:10px; font-weight:700; letter-spacing:.5px; text-transform:uppercase; color:#8a7a5a; margin-right:6px; }
+.cx { display:inline-block; margin-right:6px; font-size:12px; color:#c8bfa8; }
+.cx i { font-style:normal; font-size:10px; font-weight:700; color:#6e6656; margin-right:2px; }
+.cx em { font-style:normal; opacity:.72; font-size:11px; }
+.wnote { font-size:10px; color:#6e6656; font-style:italic; }
+.dl { background:#141414; border:1px solid #1f1f1f; border-radius:7px; margin:10px 12px; overflow:hidden; }
+.dl > summary { list-style:none; cursor:pointer; padding:9px 12px; font-size:12px; font-weight:700; color:#7ec06a; }
+.dl > summary::-webkit-details-marker { display:none; }
+.dl > summary::after { content:' \25BC'; font-size:9px; color:#555; }
+.dl[open] > summary::after { content:' \25B2'; }
+.dlg { display:grid; grid-template-columns:1fr 1fr; gap:10px; padding:2px 12px 12px; }
+.dlg h4 { font-size:10px; letter-spacing:.7px; text-transform:uppercase; color:#7a8a6a; margin-bottom:4px; }
+.dlc { font-size:12px; color:#ddd; line-height:1.55; }
+.dlc span { color:#4caf6b; font-weight:700; margin-right:4px; }
+@media (max-width:520px) { .dlg { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<div class="top-bar">
+  <h1>Mono-Green Eldrazi Ramp SB Guide</h1>
+  <div class="subtitle">"Trudge Match" list &middot; sicsmoo / Togores / Mikedevo / aspiringspike / Mengucci + Claude's picks</div>
+</div>
+<div class="banner"><b style="color:#7ec06a;">Your board is a GSZ toolbox</b> — a green 1-of boarded IN becomes findable by all 4 Green Sun's Zeniths (one copy plays like five). TKS and Sire are NOT green: GSZ can't find them. Author plans below use THEIR boards (sicsmoo runs Force of Vigor/Endurance/Dismember — you don't); Claude's picks translate the consensus to your exact 15. Chalice counts measured from 3 current verified lists per matchup. Matchup guides for this deck's play patterns: <a href="https://emersonspartz.github.io/trudge-rigging-guide/" style="color:#9ade7a;">trudge-rigging-guide</a>.</div>
+
+<details class="dl" id="deck75">
+  <summary>Your 75 &mdash; "Trudge Match", updated 20 Jul 2026</summary>
+  <div class="dlg">
+    <div><h4>Maindeck (60)</h4>
+<div class="dlc"><span>4</span>Slumbering Trudge</div>
+<div class="dlc"><span>4</span>Fanatic of Rhonas</div>
+<div class="dlc"><span>4</span>Disciple of Freyalise</div>
+<div class="dlc"><span>2</span>Turntimber Symbiosis</div>
+<div class="dlc"><span>4</span>Emrakul, the Promised End</div>
+<div class="dlc"><span>2</span>Ulamog, the Ceaseless Hunger</div>
+<div class="dlc"><span>2</span>Ugin, Eye of the Storms</div>
+<div class="dlc"><span>4</span>Fight Rigging</div>
+<div class="dlc"><span>4</span>Green Sun's Zenith</div>
+<div class="dlc"><span>4</span>Malevolent Rumble</div>
+<div class="dlc"><span>4</span>Sowing Mycospawn</div>
+<div class="dlc"><span>4</span>Kozilek's Command</div>
+<div class="dlc"><span>4</span>Ugin's Labyrinth</div>
+<div class="dlc"><span>4</span>Eldrazi Temple</div>
+<div class="dlc"><span>5</span>Forest</div>
+<div class="dlc"><span>1</span>Boseiju, Who Endures</div>
+<div class="dlc"><span>1</span>Mosswort Bridge</div>
+<div class="dlc"><span>1</span>Ghost Quarter</div>
+<div class="dlc"><span>1</span>Dryad Arbor</div>
+<div class="dlc"><span>1</span>Gemstone Caverns</div>
+    </div>
+    <div><h4>Sideboard (15)</h4>
+<div class="dlc"><span>3</span>Chalice of the Void</div>
+<div class="dlc"><span>3</span>Thought-Knot Seer</div>
+<div class="dlc"><span>2</span>Trinisphere</div>
+<div class="dlc"><span>2</span>Ghost Vacuum</div>
+<div class="dlc"><span>1</span>Collector Ouphe</div>
+<div class="dlc"><span>1</span>Chomping Changeling</div>
+<div class="dlc"><span>1</span>Keen-Eyed Curator</div>
+<div class="dlc"><span>1</span>Elder Gargaroth</div>
+<div class="dlc"><span>1</span>Sire of Seven Deaths</div>
+    </div>
+  </div>
+</details>
+
+<div class="mu open">
+  <div class="mu-head" onclick="this.parentElement.classList.toggle('open')">
+    <span class="mu-name">vs. Boros Energy</span><span class="chev">&#9660;</span>
+  </div>
+  <div class="mu-body">
+    <div class="wish"><div class="wish-row"><span class="lbl">Chalice</span><span class="cx"><i>X=0</i>0 <em>(0%)</em></span><span class="cx"><i>X=1</i>18 <em>(47%)</em></span><span class="cx"><i>X=2</i>13 <em>(34%)</em></span><span class="cx"><i>X=3</i>7 <em>(18%)</em></span><span class="wnote">of their 38 nonland spells</span></div></div>
+    <div class="gc claude">
+      <div class="gc-head"><span class="gc-author claude">Claude&rsquo;s pick &middot; your list</span><span class="conf high">HIGH</span></div>
+      <div class="gc-cols">
+        <div class="col-in"><div class="col-head">IN</div>
+          <div class="c in"><span class="qi">3</span>Chalice of the Void</div>
+          <div class="c in"><span class="qi">1</span>Elder Gargaroth</div>
+          <div class="c in"><span class="qi">1</span>Sire of Seven Deaths</div>
+        </div>
+        <div class="col-out"><div class="col-head">OUT</div>
+          <div class="c out"><span class="q">3</span>Malevolent Rumble</div>
+          <div class="c out"><span class="q">1</span>Emrakul, the Promised End</div>
+          <div class="c out"><span class="q">1</span>Ulamog, the Ceaseless Hunger</div>
+        </div>
+      </div>
+      <div class="gszrow"><span class="lbl2">GSZ finds</span>Elder Gargaroth at X=5 plays like a five-of: a 6/6 vigilance body that gains 3 life every block and outsizes anything Bolt touches.</div>
+      <div class="gc-note">Chalice on X=1 stops a measured 18 of their 38 spells (Galvanic Discharge, Guide of Souls, Ocelot Pride, Ajani, Bolt). sicsmoo's +Dismember has no equivalent in this 75, so the fifth slot follows spike/Mengu: Sire (six keywords plus ward 7) as an unanswerable brick. Cutting 1 Emrakul+1 Ulamog is Mengu's trim of top-end that is too slow vs their clock; Labyrinth fuel drops 10 to 8 plus Sire = 9, fine. Footnote: with Chalice on 1 his own GSZ X=0 for Arbor (stack MV 1) is countered; GSZ X&gt;=1 unaffected.</div>
+    </div>
+
+    <div class="gc">
+      <div class="gc-head"><span class="gc-author sic">sicsmoo</span></div>
+      <div class="gc-cols">
+        <div class="col-in"><div class="col-head">IN</div>
+          <div class="c in"><span class="qi">3</span>Chalice of the Void</div>
+          <div class="c in"><span class="qi">1</span>Dismember</div>
+          <div class="c in"><span class="qi">1</span>Elder Gargaroth</div>
+        </div>
+        <div class="col-out"><div class="col-head">OUT</div>
+          <div class="c out"><span class="q">2</span>Drowner of Truth</div>
+          <div class="c out"><span class="q">3</span>Malevolent Rumble</div>
+        </div>
+      </div>
+    </div>
+<div class="gc">
+      <div class="gc-head"><span class="gc-author spike">aspiringspike</span></div>
+      <div class="gc-cols">
+        <div class="col-in"><div class="col-head">IN</div>
+          <div class="c in"><span class="qi">1</span>Elder Gargaroth</div>
+          <div class="c in"><span class="qi">1</span>Chomping Changeling</div>
+          <div class="c in"><span class="qi">1</span>Sire of Seven Deaths</div>
+        </div>
+        <div class="col-out"><div class="col-head">OUT</div>
+          <div class="c out"><span class="q">1</span>Ghost Quarter</div>
+          <div class="c out"><span class="q">1</span>Ulamog, the Ceaseless Hunger</div>
+        </div>
+      </div>
+    </div>
+<div class="gc">
+      <div class="gc-head"><span class="gc-author mengu">Mengucci</span></div>
+      <div class="gc-cols">
+        <div class="col-in"><div class="col-head">IN</div>
+          <div class="c in"><span class="qi">1</span>Sire of Seven Deaths</div>
+        </div>
+        <div class="col-out"><div class="col-head">OUT</div>
+          <div class="c out"><span class="q">1</span>Emrakul, the Promised End</div>
+        </div>
+      </div>
+      <div class="gc-note">NO Disenchant effects</div>
+    </div>
+  </div>
+</div>
+<div class="mu">
+  <div class="mu-head" onclick="this.parentElement.classList.toggle('open')">
+    <span class="mu-name">vs. Esper Goryo's</span><span class="chev">&#9660;</span>
+  </div>
+  <div class="mu-body">
+    <div class="wish"><div class="wish-row"><span class="lbl">Chalice</span><span class="cx"><i>X=0</i>0 <em>(0%)</em></span><span class="cx"><i>X=1</i>11 <em>(28%)</em></span><span class="cx"><i>X=2</i>13 <em>(33%)</em></span><span class="cx"><i>X=3</i>3 <em>(8%)</em></span><span class="wnote">of their 39 nonland spells</span></div></div>
+    <div class="gc claude">
+      <div class="gc-head"><span class="gc-author claude">Claude&rsquo;s pick &middot; your list</span><span class="conf high">HIGH</span></div>
+      <div class="gc-cols">
+        <div class="col-in"><div class="col-head">IN</div>
+          <div class="c in"><span class="qi">2</span>Ghost Vacuum</div>
+          <div class="c in"><span class="qi">1</span>Keen-Eyed Curator</div>
+          <div class="c in"><span class="qi">2</span>Thought-Knot Seer</div>
+        </div>
+        <div class="col-out"><div class="col-head">OUT</div>
+          <div class="c out"><span class="q">2</span>Malevolent Rumble</div>
+          <div class="c out"><span class="q">2</span>Sowing Mycospawn</div>
+          <div class="c out"><span class="q">1</span>Ulamog, the Ceaseless Hunger</div>
+        </div>
+      </div>
+      <div class="gszrow"><span class="lbl2">GSZ finds</span>Keen-Eyed Curator at X=2 is turn-2 repeatable {1}-exile that any of 4 GSZ finds, holding off Goryo's on Griselbrand/Atraxa every turn.</div>
+      <div class="gc-note">sicsmoo/Togores board Endurance here; this 75's Endurance role is Ghost Vacuum x2 plus Curator, and TKS (Togores boards it too) strips Goryo's or Atraxa. Cuts track Togores (Rumble/Ulamog/Mycospawn, one extra Mycospawn to make room). Chalice deliberately stays out: X=1 hits only 11 of 39 and Prismatic Ending answers it. Vacuum's tap-exile is free once it is down, so keep it untapped for the Goryo's window; no Ouphe is boarded, so Vacuum has no friendly-fire.</div>
+    </div>
+
+    <div class="gc">
+      <div class="gc-head"><span class="gc-author sic">sicsmoo</span></div>
+      <div class="gc-cols">
+        <div class="col-in"><div class="col-head">IN</div>
+          <div class="c in"><span class="qi">2</span>Endurance</div>
+        </div>
+        <div class="col-out"><div class="col-head">OUT</div>
+          <div class="c out"><span class="q">2</span>Drowner of Truth</div>
+        </div>
+      </div>
+    </div>
+<div class="gc">
+      <div class="gc-head"><span class="gc-author togo">Togores</span></div>
+      <div class="gc-cols">
+        <div class="col-in"><div class="col-head">IN</div>
+          <div class="c in"><span class="qi">1</span>Thought-Knot Seer</div>
+          <div class="c in"><span class="qi">1</span>Endurance</div>
+          <div class="c in"><span class="qi">1</span>Trinisphere</div>
+        </div>
+        <div class="col-out"><div class="col-head">OUT</div>
+          <div class="c out"><span class="q">2</span>Malevolent Rumble</div>
+          <div class="c out"><span class="q">1</span>Ulamog, the Ceaseless Hunger</div>
+          <div class="c out"><span class="q">1</span>Sowing Mycospawn</div>
+        </div>
+      </div>
+      <div class="gc-note">On the draw: also IN Gemstone Caverns / OUT Mosswort Bridge</div>
+    </div>
+  </div>
+</div>
+<div class="mu">
+  <div class="mu-head" onclick="this.parentElement.classList.toggle('open')">
+    <span class="mu-name">vs. Affinity</span><span class="chev">&#9660;</span>
+  </div>
+  <div class="mu-body">
+    <div class="wish"><div class="wish-row"><span class="lbl">Chalice</span><span class="cx"><i>X=0</i>21 <em>(49%)</em></span><span class="cx"><i>X=1</i>5 <em>(12%)</em></span><span class="cx"><i>X=2</i>5 <em>(12%)</em></span><span class="cx"><i>X=3</i>6 <em>(14%)</em></span><span class="wnote">of their 43 nonland spells</span></div></div>
+    <div class="gc claude">
+      <div class="gc-head"><span class="gc-author claude">Claude&rsquo;s pick &middot; your list</span><span class="conf high">HIGH</span></div>
+      <div class="gc-cols">
+        <div class="col-in"><div class="col-head">IN</div>
+          <div class="c in"><span class="qi">3</span>Chalice of the Void</div>
+          <div class="c in"><span class="qi">1</span>Collector Ouphe</div>
+          <div class="c in"><span class="qi">1</span>Chomping Changeling</div>
+        </div>
+        <div class="col-out"><div class="col-head">OUT</div>
+          <div class="c out"><span class="q">4</span>Sowing Mycospawn</div>
+          <div class="c out"><span class="q">1</span>Ugin, Eye of the Storms</div>
+        </div>
+      </div>
+      <div class="gszrow"><span class="lbl2">GSZ finds</span>Ouphe at X=2 locks Claws of Gix, Ravager sacs, Baubles, Engineered Explosives, Experimental Synthesizer, and Tormod's Crypt; Changeling at X=3 kills Urza's Saga, Kappa Cannoneer, or Weapons Manufacturing.</div>
+      <div class="gc-note">Chalice on X=0 stops a measured 21 of their 43 spells (Baubles, Opals, Claws, Crypts, Jar, Memnite) with zero self-interference — GSZ X=0 is MV1 on the stack and he casts nothing at MV0. sicsmoo's 3 Force of Vigor translate to Ouphe+Changeling+maindeck Boseiju. Cuts follow sicsmoo (4 Mycospawn) and mikedevo (Ugin, whose colored-only exile misses their almost entirely colorless board). Ghost Vacuum stays out so Ouphe has no friendly-fire.</div>
+    </div>
+
+    <div class="gc">
+      <div class="gc-head"><span class="gc-author sic">sicsmoo</span></div>
+      <div class="gc-cols">
+        <div class="col-in"><div class="col-head">IN</div>
+          <div class="c in"><span class="qi">3</span>Force of Vigor</div>
+          <div class="c in"><span class="qi">3</span>Chalice of the Void</div>
+        </div>
+        <div class="col-out"><div class="col-head">OUT</div>
+          <div class="c out"><span class="q">4</span>Sowing Mycospawn</div>
+          <div class="c out"><span class="q">2</span>Drowner of Truth</div>
+        </div>
+      </div>
+    </div>
+<div class="gc">
+      <div class="gc-head"><span class="gc-author mike">Mikedevo</span></div>
+      <div class="gc-cols">
+        <div class="col-in"><div class="col-head">IN</div>
+          <div class="c in"><span class="qi">1</span>Force of Vigor</div>
+          <div class="c in"><span class="qi">1</span>Chalice of the Void</div>
+        </div>
+        <div class="col-out"><div class="col-head">OUT</div>
+          <div class="c out"><span class="q">3 of 4</span>Sowing Mycospawn</div>
+          <div class="c out"><span class="q">1</span>Ugin, Eye of the Storms</div>
+        </div>
+      </div>
+    </div>
+<div class="gc">
+      <div class="gc-head"><span class="gc-author spike">aspiringspike</span></div>
+      <div class="gc-cols">
+        <div class="col-in"><div class="col-head">IN</div>
+          <div class="c in"><span class="qi">1</span>Creeping Corrosion</div>
+          <div class="c in"><span class="qi">1</span>Chomping Changeling</div>
+          <div class="c in"><span class="qi">1</span>Collector Ouphe</div>
+        </div>
+        <div class="col-out"><div class="col-head">OUT</div>
+          <div class="c out"><span class="q">1</span>Devourer of Destiny / Ugin</div>
+          <div class="c out"><span class="q">1</span>Sowing Mycospawn</div>
+        </div>
+      </div>
+      <div class="gc-note">his list runs Devourer</div>
+    </div>
+  </div>
+</div>
+<div class="mu">
+  <div class="mu-head" onclick="this.parentElement.classList.toggle('open')">
+    <span class="mu-name">vs. Ruby Storm</span><span class="chev">&#9660;</span>
+  </div>
+  <div class="mu-body">
+    <div class="wish"><div class="wish-row"><span class="lbl">Chalice</span><span class="cx"><i>X=0</i>0 <em>(0%)</em></span><span class="cx"><i>X=1</i>0 <em>(0%)</em></span><span class="cx"><i>X=2</i>31 <em>(78%)</em></span><span class="cx"><i>X=3</i>6 <em>(15%)</em></span><span class="wnote">of their 40 nonland spells</span></div></div>
+    <div class="gc claude">
+      <div class="gc-head"><span class="gc-author claude">Claude&rsquo;s pick &middot; your list</span><span class="conf high">HIGH</span></div>
+      <div class="gc-cols">
+        <div class="col-in"><div class="col-head">IN</div>
+          <div class="c in"><span class="qi">3</span>Chalice of the Void</div>
+          <div class="c in"><span class="qi">2</span>Trinisphere</div>
+          <div class="c in"><span class="qi">2</span>Thought-Knot Seer</div>
+        </div>
+        <div class="col-out"><div class="col-head">OUT</div>
+          <div class="c out"><span class="q">4</span>Malevolent Rumble</div>
+          <div class="c out"><span class="q">3</span>Sowing Mycospawn</div>
+        </div>
+      </div>
+      <div class="gszrow"><span class="lbl2">GSZ finds</span>No new green bullets; GSZ stays a Trudge/Fanatic curve-filler (X=0 Arbor still live since Chalice sits on 2).</div>
+      <div class="gc-note">Straight port of sicsmoo, card for card, since every piece exists in his 15. Chalice on X=2 stops a measured 31 of their 40 spells (all rituals, Manamorphose, Wrenn's Resolve, Reckless Impulse, Hex Magic, Medallion); Trinisphere shuts the ritual chain off entirely. Sequencing footnote: his own Chalice on 2 catches Fanatic AND GSZ X=1 (stack MV 2), so deploy Fanatic first and size GSZ at X=0 or X&gt;=2.</div>
+    </div>
+
+    <div class="gc">
+      <div class="gc-head"><span class="gc-author sic">sicsmoo</span></div>
+      <div class="gc-cols">
+        <div class="col-in"><div class="col-head">IN</div>
+          <div class="c in"><span class="qi">3</span>Chalice of the Void</div>
+          <div class="c in"><span class="qi">2</span>Trinisphere</div>
+          <div class="c in"><span class="qi">2</span>Thought-Knot Seer</div>
+        </div>
+        <div class="col-out"><div class="col-head">OUT</div>
+          <div class="c out"><span class="q">4</span>Malevolent Rumble</div>
+          <div class="c out"><span class="q">3</span>Sowing Mycospawn</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="mu">
+  <div class="mu-head" onclick="this.parentElement.classList.toggle('open')">
+    <span class="mu-name">vs. Izzet Prowess</span><span class="chev">&#9660;</span>
+  </div>
+  <div class="mu-body">
+    <div class="wish"><div class="wish-row"><span class="lbl">Chalice</span><span class="cx"><i>X=0</i>4 <em>(10%)</em></span><span class="cx"><i>X=1</i>27 <em>(64%)</em></span><span class="cx"><i>X=2</i>11 <em>(26%)</em></span><span class="cx"><i>X=3</i>0 <em>(0%)</em></span><span class="wnote">of their 42 nonland spells</span></div></div>
+    <div class="gc claude">
+      <div class="gc-head"><span class="gc-author claude">Claude&rsquo;s pick &middot; your list</span><span class="conf medium">MEDIUM</span></div>
+      <div class="gc-cols">
+        <div class="col-in"><div class="col-head">IN</div>
+          <div class="c in"><span class="qi">3</span>Chalice of the Void</div>
+          <div class="c in"><span class="qi">2</span>Trinisphere</div>
+          <div class="c in"><span class="qi">1</span>Sire of Seven Deaths</div>
+          <div class="c in"><span class="qi">1</span>Elder Gargaroth</div>
+        </div>
+        <div class="col-out"><div class="col-head">OUT</div>
+          <div class="c out"><span class="q">4</span>Malevolent Rumble</div>
+          <div class="c out"><span class="q">2</span>Emrakul, the Promised End</div>
+          <div class="c out"><span class="q">1</span>Ulamog, the Ceaseless Hunger</div>
+        </div>
+      </div>
+      <div class="gszrow"><span class="lbl2">GSZ finds</span>Elder Gargaroth at X=5: a 6/6 vigilance-reach wall that gains 3 life every time it blocks — their burn cannot profitably remove it.</div>
+      <div class="gc-note">Chalice on X=1 stops a measured 27 of 42 (Bolt, Dart, Preordain, Swiftspear, DRC, Mutagenic Growth); footnote that it also turns off his own GSZ X=0 Arbor line. Trinisphere follows the sicsmoo/Mengu/spike consensus. sicsmoo's Dismember becomes the spike/Mengu bodies: Sire and Gargaroth. Cutting 2 Emrakul is Mengu's line (too slow vs their clock); Labyrinth fuel goes 10 to 7 plus Sire = 8, acceptable in a race.</div>
+    </div>
+
+    <div class="gc">
+      <div class="gc-head"><span class="gc-author sic">sicsmoo</span></div>
+      <div class="gc-cols">
+        <div class="col-in"><div class="col-head">IN</div>
+          <div class="c in"><span class="qi">3</span>Chalice of the Void</div>
+          <div class="c in"><span class="qi">2</span>Trinisphere</div>
+          <div class="c in"><span class="qi">1</span>Dismember</div>
+        </div>
+        <div class="col-out"><div class="col-head">OUT</div>
+          <div class="c out"><span class="q">4</span>Malevolent Rumble</div>
+          <div class="c out"><span class="q">2</span>Drowner of Truth</div>
+        </div>
+      </div>
+    </div>
+<div class="gc">
+      <div class="gc-head"><span class="gc-author spike">aspiringspike</span></div>
+      <div class="gc-cols">
+        <div class="col-in"><div class="col-head">IN</div>
+          <div class="c in"><span class="qi">1</span>Trinisphere</div>
+          <div class="c in"><span class="qi">1</span>Chalice of the Void</div>
+          <div class="c in"><span class="qi">1</span>Sire of Seven Deaths</div>
+          <div class="c in"><span class="qi">1</span>Elder Gargaroth</div>
+        </div>
+        <div class="col-out"><div class="col-head">OUT</div>
+          <div class="c out"><span class="q">1</span>Sowing Mycospawn</div>
+          <div class="c out"><span class="q">1</span>Cavern of Souls / Ghost Quarter</div>
+          <div class="c out"><span class="q">1</span>Malevolent Rumble</div>
+          <div class="c out"><span class="q">1</span>Ulamog, the Ceaseless Hunger</div>
+        </div>
+      </div>
+    </div>
+<div class="gc">
+      <div class="gc-head"><span class="gc-author mengu">Mengucci</span></div>
+      <div class="gc-cols">
+        <div class="col-in"><div class="col-head">IN</div>
+          <div class="c in"><span class="qi">1</span>Endurance</div>
+          <div class="c in"><span class="qi">1</span>Trinisphere</div>
+          <div class="c in"><span class="qi">1</span>Sire of Seven Deaths</div>
+        </div>
+        <div class="col-out"><div class="col-head">OUT</div>
+          <div class="c out"><span class="q">1</span>Malevolent Rumble</div>
+          <div class="c out"><span class="q">1</span>Fight Rigging</div>
+          <div class="c out"><span class="q">2</span>Emrakul, the Promised End</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="mu">
+  <div class="mu-head" onclick="this.parentElement.classList.toggle('open')">
+    <span class="mu-name">vs. Broodscale Combo</span><span class="chev">&#9660;</span>
+  </div>
+  <div class="mu-body">
+    <div class="wish"><div class="wish-row"><span class="lbl">Chalice</span><span class="cx"><i>X=0</i>1 <em>(3%)</em></span><span class="cx"><i>X=1</i>13 <em>(35%)</em></span><span class="cx"><i>X=2</i>13 <em>(35%)</em></span><span class="cx"><i>X=3</i>3 <em>(8%)</em></span><span class="wnote">of their 37 nonland spells</span></div></div>
+    <div class="gc claude">
+      <div class="gc-head"><span class="gc-author claude">Claude&rsquo;s pick &middot; your list</span><span class="conf medium">MEDIUM</span></div>
+      <div class="gc-cols">
+        <div class="col-in"><div class="col-head">IN</div>
+          <div class="c in"><span class="qi">2</span>Thought-Knot Seer</div>
+          <div class="c in"><span class="qi">1</span>Collector Ouphe</div>
+          <div class="c in"><span class="qi">1</span>Chomping Changeling</div>
+        </div>
+        <div class="col-out"><div class="col-head">OUT</div>
+          <div class="c out"><span class="q">2</span>Ugin, Eye of the Storms</div>
+          <div class="c out"><span class="q">2</span>Malevolent Rumble</div>
+        </div>
+      </div>
+      <div class="gszrow"><span class="lbl2">GSZ finds</span>Ouphe at X=2 stops Blade of the Bloodchief equip activations, Walking Ballista, Vexing Bauble, Soul-Guide Lantern, and Drum/Talisman mana; Changeling at X=3 kills Blade or Urza's Saga.</div>
+      <div class="gc-note">sicsmoo boards Dismember+3 FoV+2 TKS; the FoV/Dismember role maps to Ouphe and Changeling, both GSZ-reachable, with TKS taking the combo piece. Caveat on Ouphe: equip is an activated ability, but once Blade is already attached the kill loop runs entirely on triggers — Changeling or TKS handles an attached Blade, and the Broodscale+Fleshraker line is artifact-free anyway, so Ouphe is a wing-clipper, not a lock. Cuts follow sicsmoo: Ugin's colored-only exile is near-blank against their colorless/devoid board, and Rumble trims for the interaction.</div>
+    </div>
+
+    <div class="gc">
+      <div class="gc-head"><span class="gc-author sic">sicsmoo</span></div>
+      <div class="gc-cols">
+        <div class="col-in"><div class="col-head">IN</div>
+          <div class="c in"><span class="qi">1</span>Dismember</div>
+          <div class="c in"><span class="qi">3</span>Force of Vigor</div>
+          <div class="c in"><span class="qi">2</span>Thought-Knot Seer</div>
+        </div>
+        <div class="col-out"><div class="col-head">OUT</div>
+          <div class="c out"><span class="q">2</span>Ugin, Eye of the Storms</div>
+          <div class="c out"><span class="q">2</span>Drowner of Truth</div>
+          <div class="c out"><span class="q">2</span>Malevolent Rumble</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="mu">
+  <div class="mu-head" onclick="this.parentElement.classList.toggle('open')">
+    <span class="mu-name">vs. Eldrazi Tron</span><span class="chev">&#9660;</span>
+  </div>
+  <div class="mu-body">
+    <div class="wish"><div class="wish-row"><span class="lbl">Chalice</span><span class="cx"><i>X=0</i>4 <em>(10%)</em></span><span class="cx"><i>X=1</i>4 <em>(10%)</em></span><span class="cx"><i>X=2</i>9 <em>(23%)</em></span><span class="cx"><i>X=3</i>5 <em>(13%)</em></span><span class="wnote">of their 39 nonland spells</span></div></div>
+    <div class="gc claude">
+      <div class="gc-head"><span class="gc-author claude">Claude&rsquo;s pick &middot; your list</span><span class="conf medium">MEDIUM</span></div>
+      <div class="gc-cols">
+        <div class="col-in"><div class="col-head">IN</div>
+          <div class="c in"><span class="qi">2</span>Thought-Knot Seer</div>
+        </div>
+        <div class="col-out"><div class="col-head">OUT</div>
+          <div class="c out"><span class="q">2</span>Fanatic of Rhonas</div>
+        </div>
+      </div>
+      <div class="gszrow"><span class="lbl2">GSZ finds</span>No new bullets; GSZ default (Fanatic ramp, X=0 Arbor) though their Chalice on 1 counters the X=0 Arbor line (stack MV 1).</div>
+      <div class="gc-note">sicsmoo boards only 2 TKS for 2 Drowner; Emerson has no Drowner, and his colorless top end is excellent in the pseudo-mirror (Emrakul is the trump), so the trim is Fanatic: it lines up terribly against Dismember/Kozilek's Command and ferocious is rarely on in a board stall. Beware their Chalice on 1 (GSZ X=0) and on 2 (Rumble/Fanatic/GSZ X=1); Boseiju is the only clean out — Kozilek's Command exiles creatures, it cannot touch an artifact — otherwise size Trudge/GSZ around the counter.</div>
+    </div>
+
+    <div class="gc">
+      <div class="gc-head"><span class="gc-author sic">sicsmoo</span></div>
+      <div class="gc-cols">
+        <div class="col-in"><div class="col-head">IN</div>
+          <div class="c in"><span class="qi">2</span>Thought-Knot Seer</div>
+        </div>
+        <div class="col-out"><div class="col-head">OUT</div>
+          <div class="c out"><span class="q">2</span>Drowner of Truth</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="mu">
+  <div class="mu-head" onclick="this.parentElement.classList.toggle('open')">
+    <span class="mu-name">vs. Boros Ponza</span><span class="chev">&#9660;</span>
+  </div>
+  <div class="mu-body">
+    <div class="wish"><div class="wish-row"><span class="lbl">Chalice</span><span class="cx"><i>X=0</i>0 <em>(0%)</em></span><span class="cx"><i>X=1</i>11 <em>(31%)</em></span><span class="cx"><i>X=2</i>16 <em>(46%)</em></span><span class="cx"><i>X=3</i>3 <em>(9%)</em></span><span class="wnote">of their 35 nonland spells</span></div></div>
+    <div class="gc claude">
+      <div class="gc-head"><span class="gc-author claude">Claude&rsquo;s pick &middot; your list</span><span class="conf low">LOW</span></div>
+      <div class="gc-cols">
+        <div class="col-in"><div class="col-head">IN</div>
+          <div class="c in"><span class="qi">2</span>Thought-Knot Seer</div>
+          <div class="c in"><span class="qi">1</span>Chomping Changeling</div>
+        </div>
+        <div class="col-out"><div class="col-head">OUT</div>
+          <div class="c out"><span class="q">2</span>Fanatic of Rhonas</div>
+          <div class="c out"><span class="q">1</span>Ulamog, the Ceaseless Hunger</div>
+        </div>
+      </div>
+      <div class="gszrow"><span class="lbl2">GSZ finds</span>Changeling at X=3 answers High Noon (which caps him at one spell a turn) or an Avengers Disassembled chapter, findable by all 4 GSZ.</div>
+      <div class="gc-note">sicsmoo's +2 Endurance has no functional map here (their graveyard angle is nil), so the plan pivots: TKS strips Avengers Disassembled/Wrath of the Skies before they wipe, and pressures a fully reactive deck. Fanatic is the worst card vs 4 Path/3 Discharge and wrath-reset boards; one Ulamog trims a 10-drop that is hard to reach when Field of Ruin/Demolition Field eat the Temples (Emrakul stays, Rigging cheats it out). Chalice skipped: X=2 hits 16 but also his own Rumble/Fanatic, and High Noon is the actual problem.</div>
+    </div>
+
+    <div class="gc">
+      <div class="gc-head"><span class="gc-author sic">sicsmoo</span></div>
+      <div class="gc-cols">
+        <div class="col-in"><div class="col-head">IN</div>
+          <div class="c in"><span class="qi">2</span>Endurance</div>
+        </div>
+        <div class="col-out"><div class="col-head">OUT</div>
+          <div class="c out"><span class="q">2</span>Drowner of Truth</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="mu">
+  <div class="mu-head" onclick="this.parentElement.classList.toggle('open')">
+    <span class="mu-name">vs. Grixis Reanimator</span><span class="chev">&#9660;</span>
+  </div>
+  <div class="mu-body">
+    <div class="wish"><div class="wish-row"><span class="lbl">Chalice</span><span class="cx"><i>X=0</i>0 <em>(0%)</em></span><span class="cx"><i>X=1</i>22 <em>(54%)</em></span><span class="cx"><i>X=2</i>11 <em>(27%)</em></span><span class="cx"><i>X=3</i>4 <em>(10%)</em></span><span class="wnote">of their 41 nonland spells</span></div></div>
+    <div class="gc claude">
+      <div class="gc-head"><span class="gc-author claude">Claude&rsquo;s pick &middot; your list</span><span class="conf high">HIGH</span></div>
+      <div class="gc-cols">
+        <div class="col-in"><div class="col-head">IN</div>
+          <div class="c in"><span class="qi">3</span>Chalice of the Void</div>
+          <div class="c in"><span class="qi">2</span>Ghost Vacuum</div>
+          <div class="c in"><span class="qi">1</span>Keen-Eyed Curator</div>
+        </div>
+        <div class="col-out"><div class="col-head">OUT</div>
+          <div class="c out"><span class="q">4</span>Malevolent Rumble</div>
+          <div class="c out"><span class="q">1</span>Ulamog, the Ceaseless Hunger</div>
+          <div class="c out"><span class="q">1</span>Sowing Mycospawn</div>
+        </div>
+      </div>
+      <div class="gszrow"><span class="lbl2">GSZ finds</span>Keen-Eyed Curator at X=2: repeatable {1}-exile on Archon/Oculus/Unearth targets that all 4 GSZ can find.</div>
+      <div class="gc-note">Chalice on X=1 stops a measured 22 of 41 (Push, Looting, Unearth, Thoughtseize, Inquisition, Thought Scour); Persist at MV2 slips under it, which is what the Vacuums are for. sicsmoo's Endurance role becomes Vacuum x2 + Curator. Critical sequencing: Ghost Vacuum is MV1, so his own Chalice on 1 counters it — deploy Vacuum BEFORE Chalice, or lean on Curator once Chalice is down. Cutting all 4 Rumble matches sicsmoo and keeps Emrakul/Ulamog out of his own graveyard, where their 3 Emperor of Bones can exile-and-steal them.</div>
+    </div>
+
+    <div class="gc">
+      <div class="gc-head"><span class="gc-author sic">sicsmoo</span></div>
+      <div class="gc-cols">
+        <div class="col-in"><div class="col-head">IN</div>
+          <div class="c in"><span class="qi">3</span>Chalice of the Void</div>
+          <div class="c in"><span class="qi">1</span>Dismember</div>
+          <div class="c in"><span class="qi">2</span>Endurance</div>
+        </div>
+        <div class="col-out"><div class="col-head">OUT</div>
+          <div class="c out"><span class="q">2</span>Drowner of Truth</div>
+          <div class="c out"><span class="q">4</span>Malevolent Rumble</div>
+        </div>
+      </div>
+    </div>
+<div class="gc">
+      <div class="gc-head"><span class="gc-author spike">aspiringspike</span></div>
+      <div class="gc-cols">
+        <div class="col-in"><div class="col-head">IN</div>
+          <div class="c in"><span class="qi">1</span>Endurance</div>
+        </div>
+        <div class="col-out"><div class="col-head">OUT</div>
+          <div class="c out"><span class="q">1</span>Sowing Mycospawn</div>
+          <div class="c out"><span class="q">1</span>Malevolent Rumble</div>
+        </div>
+      </div>
+      <div class="gc-note">NOT Thought-Knot Seer</div>
+    </div>
+  </div>
+</div>
+<div class="mu">
+  <div class="mu-head" onclick="this.parentElement.classList.toggle('open')">
+    <span class="mu-name">vs. Domain Zoo</span><span class="chev">&#9660;</span>
+  </div>
+  <div class="mu-body">
+    <div class="wish"><div class="wish-row"><span class="lbl">Chalice</span><span class="cx"><i>X=0</i>0 <em>(0%)</em></span><span class="cx"><i>X=1</i>12 <em>(32%)</em></span><span class="cx"><i>X=2</i>11 <em>(29%)</em></span><span class="cx"><i>X=3</i>2 <em>(5%)</em></span><span class="wnote">of their 38 nonland spells</span></div></div>
+    <div class="gc claude">
+      <div class="gc-head"><span class="gc-author claude">Claude&rsquo;s pick &middot; your list</span><span class="conf medium">MEDIUM</span></div>
+      <div class="gc-cols">
+        <div class="col-in"><div class="col-head">IN</div>
+          <div class="c in"><span class="qi">1</span>Chomping Changeling</div>
+          <div class="c in"><span class="qi">1</span>Sire of Seven Deaths</div>
+        </div>
+        <div class="col-out"><div class="col-head">OUT</div>
+          <div class="c out"><span class="q">1</span>Malevolent Rumble</div>
+          <div class="c out"><span class="q">1</span>Ulamog, the Ceaseless Hunger</div>
+        </div>
+      </div>
+      <div class="gszrow"><span class="lbl2">GSZ finds</span>Changeling at X=3 kills Leyline Binding (returning whatever it exiled) or Leyline of the Guildpact.</div>
+      <div class="gc-note">Togores boards 1 FoV + 1 Dismember for Rumble/Ulamog; his FoV becomes Changeling (plus maindeck Boseiju) and the Dismember slot becomes Sire, a ward-7 first-striker that Stubborn Denial cannot touch (creature spell) and whose reach blocks Scion of Draco. Labyrinth fuel stays at 9 plus Sire = 10. Small plan on purpose — the maindeck is already configured to go over the top of them.</div>
+    </div>
+
+    <div class="gc">
+      <div class="gc-head"><span class="gc-author togo">Togores</span></div>
+      <div class="gc-cols">
+        <div class="col-in"><div class="col-head">IN</div>
+          <div class="c in"><span class="qi">1</span>Force of Vigor</div>
+          <div class="c in"><span class="qi">1</span>Dismember</div>
+        </div>
+        <div class="col-out"><div class="col-head">OUT</div>
+          <div class="c out"><span class="q">2 of 4</span>Malevolent Rumble</div>
+          <div class="c out"><span class="q">1</span>Ulamog, the Ceaseless Hunger</div>
+        </div>
+      </div>
+      <div class="gc-note">On the draw: also IN Gemstone Caverns / OUT Mosswort Bridge</div>
+    </div>
+  </div>
+</div>
+<div class="mu">
+  <div class="mu-head" onclick="this.parentElement.classList.toggle('open')">
+    <span class="mu-name">vs. Amulet Titan</span><span class="chev">&#9660;</span>
+  </div>
+  <div class="mu-body">
+    <div class="wish"><div class="wish-row"><span class="lbl">Chalice</span><span class="cx"><i>X=0</i>2 <em>(7%)</em></span><span class="cx"><i>X=1</i>12 <em>(40%)</em></span><span class="cx"><i>X=2</i>3 <em>(10%)</em></span><span class="cx"><i>X=3</i>5 <em>(17%)</em></span><span class="wnote">of their 30 nonland spells</span></div></div>
+    <div class="gc claude">
+      <div class="gc-head"><span class="gc-author claude">Claude&rsquo;s pick &middot; your list</span><span class="conf high">HIGH</span></div>
+      <div class="gc-cols">
+        <div class="col-in"><div class="col-head">IN</div>
+          <div class="c in"><span class="qi">2</span>Thought-Knot Seer</div>
+          <div class="c in"><span class="qi">1</span>Chomping Changeling</div>
+        </div>
+        <div class="col-out"><div class="col-head">OUT</div>
+          <div class="c out"><span class="q">2</span>Ugin, Eye of the Storms</div>
+          <div class="c out"><span class="q">1</span>Malevolent Rumble</div>
+        </div>
+      </div>
+      <div class="gszrow"><span class="lbl2">GSZ finds</span>Changeling at X=3 kills Amulet of Vigor, Spelunking, or Urza's Saga on demand via any GSZ.</div>
+      <div class="gc-note">sicsmoo: +2 TKS +3 FoV, -2 Drowner -2 Ugin -1 Rumble. TKS ports directly (takes Titan/Scapeshift); the 3 FoV compress into Changeling + maindeck Boseiju, with kicked Mycospawn exiling a key bounceland or Saga as backup. Ugin comes out per sicsmoo — its colored-only exile misses Amulet and Saga (both colorless) and it is too slow vs their T3-4 kill.</div>
+    </div>
+
+    <div class="gc">
+      <div class="gc-head"><span class="gc-author sic">sicsmoo</span></div>
+      <div class="gc-cols">
+        <div class="col-in"><div class="col-head">IN</div>
+          <div class="c in"><span class="qi">2</span>Thought-Knot Seer</div>
+          <div class="c in"><span class="qi">3</span>Force of Vigor</div>
+        </div>
+        <div class="col-out"><div class="col-head">OUT</div>
+          <div class="c out"><span class="q">2</span>Drowner of Truth</div>
+          <div class="c out"><span class="q">2</span>Ugin, Eye of the Storms</div>
+          <div class="c out"><span class="q">1</span>Malevolent Rumble</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="mu">
+  <div class="mu-head" onclick="this.parentElement.classList.toggle('open')">
+    <span class="mu-name">vs. Azorius Control</span><span class="chev">&#9660;</span>
+  </div>
+  <div class="mu-body">
+    <div class="wish"><div class="wish-row"><span class="lbl">Chalice</span><span class="cx"><i>X=0</i>0 <em>(0%)</em></span><span class="cx"><i>X=1</i>8 <em>(22%)</em></span><span class="cx"><i>X=2</i>12 <em>(33%)</em></span><span class="cx"><i>X=3</i>8 <em>(22%)</em></span><span class="wnote">of their 36 nonland spells</span></div></div>
+    <div class="gc claude">
+      <div class="gc-head"><span class="gc-author claude">Claude&rsquo;s pick &middot; your list</span><span class="conf high">HIGH</span></div>
+      <div class="gc-cols">
+        <div class="col-in"><div class="col-head">IN</div>
+          <div class="c in"><span class="qi">3</span>Thought-Knot Seer</div>
+          <div class="c in"><span class="qi">1</span>Elder Gargaroth</div>
+          <div class="c in"><span class="qi">1</span>Sire of Seven Deaths</div>
+        </div>
+        <div class="col-out"><div class="col-head">OUT</div>
+          <div class="c out"><span class="q">4</span>Fight Rigging</div>
+          <div class="c out"><span class="q">1</span>Slumbering Trudge</div>
+        </div>
+      </div>
+      <div class="gszrow"><span class="lbl2">GSZ finds</span>Gargaroth at X=5 is a must-answer value engine every GSZ finds again after each Solitude/wrath.</div>
+      <div class="gc-note">sicsmoo's explicit transform: cut ALL 4 Rigging (a sorcery-speed enchantment that eats Prismatic Ending/Teferi) plus 1 Trudge, and become a threat-density deck — engine-cut rule invoked deliberately with his reasoning. His Endurance slots become the third TKS plus Sire, whose ward makes Solitude cost 7 life and which Prismatic Ending can never exile (MV7 needs seven colors of mana). Chalice stays out: only 8 cards at X=1, and Teferi, Time Raveler bounces it.</div>
+    </div>
+
+    <div class="gc">
+      <div class="gc-head"><span class="gc-author sic">sicsmoo</span></div>
+      <div class="gc-cols">
+        <div class="col-in"><div class="col-head">IN</div>
+          <div class="c in"><span class="qi">2</span>Endurance</div>
+          <div class="c in"><span class="qi">2</span>Thought-Knot Seer</div>
+          <div class="c in"><span class="qi">1</span>Elder Gargaroth</div>
+        </div>
+        <div class="col-out"><div class="col-head">OUT</div>
+          <div class="c out"><span class="q">4</span>Fight Rigging</div>
+          <div class="c out"><span class="q">1</span>Slumbering Trudge</div>
+        </div>
+      </div>
+      <div class="gc-note">labeled just CONTROL</div>
+    </div>
+  </div>
+</div>
+<div class="mu">
+  <div class="mu-head" onclick="this.parentElement.classList.toggle('open')">
+    <span class="mu-name">vs. Dimir Frog / Midrange</span><span class="chev">&#9660;</span>
+  </div>
+  <div class="mu-body">
+    <div class="wish"><div class="wish-row"><span class="lbl">Chalice</span><span class="cx"><i>X=0</i>0 <em>(0%)</em></span><span class="cx"><i>X=1</i>14 <em>(37%)</em></span><span class="cx"><i>X=2</i>13 <em>(34%)</em></span><span class="cx"><i>X=3</i>3 <em>(8%)</em></span><span class="wnote">of their 38 nonland spells</span></div></div>
+    <div class="gc claude">
+      <div class="gc-head"><span class="gc-author claude">Claude&rsquo;s pick &middot; your list</span><span class="conf high">HIGH</span></div>
+      <div class="gc-cols">
+        <div class="col-in"><div class="col-head">IN</div>
+          <div class="c in" style="font-style:italic;color:#888;">(nothing)</div>
+        </div>
+        <div class="col-out"><div class="col-head">OUT</div>
+          <div class="c out" style="font-style:italic;color:#888;">(nothing)</div>
+        </div>
+      </div>
+      <div class="gc-note">aspiringspike's plan is literally no changes and it holds for this 75: every maindeck card pulls weight against a fair counterspell deck, and nothing in the board beats what it would replace (TKS is a 4-drop that trades down into a 1-mana revolt Fatal Push; Chalice X=1 hits only 14 and they keep functioning through it). Optional fringe swap if Frog/Murktide dominates a local meta: 1 Keen-Eyed Curator for 1 Malevolent Rumble to tax Frog and delve fuel, but the default is zero.</div>
+    </div>
+
+    <div class="gc">
+      <div class="gc-head"><span class="gc-author spike">aspiringspike</span></div>
+      <div class="gc-cols">
+        <div class="col-in"><div class="col-head">IN</div>
+          <div class="c in" style="font-style:italic;color:#888;">(nothing)</div>
+        </div>
+        <div class="col-out"><div class="col-head">OUT</div>
+          <div class="c out" style="font-style:italic;color:#888;">(nothing)</div>
+        </div>
+      </div>
+      <div class="gc-note">No changes</div>
+    </div>
+  </div>
+</div>
+<div class="mu">
+  <div class="mu-head" onclick="this.parentElement.classList.toggle('open')">
+    <span class="mu-name">vs. Yawgmoth</span><span class="chev">&#9660;</span>
+  </div>
+  <div class="mu-body">
+    <div class="wish"><div class="wish-row"><span class="lbl">Chalice</span><span class="cx"><i>X=0</i>3 <em>(8%)</em></span><span class="cx"><i>X=1</i>12 <em>(31%)</em></span><span class="cx"><i>X=2</i>16 <em>(41%)</em></span><span class="cx"><i>X=3</i>4 <em>(10%)</em></span><span class="wnote">of their 39 nonland spells &middot; only 2 verified lists</span></div></div>
+    <div class="gc claude">
+      <div class="gc-head"><span class="gc-author claude">Claude&rsquo;s pick &middot; your list</span><span class="conf high">HIGH</span></div>
+      <div class="gc-cols">
+        <div class="col-in"><div class="col-head">IN</div>
+          <div class="c in"><span class="qi">1</span>Collector Ouphe</div>
+          <div class="c in"><span class="qi">1</span>Chomping Changeling</div>
+          <div class="c in"><span class="qi">1</span>Keen-Eyed Curator</div>
+        </div>
+        <div class="col-out"><div class="col-head">OUT</div>
+          <div class="c out"><span class="q">1</span>Ulamog, the Ceaseless Hunger</div>
+          <div class="c out"><span class="q">1</span>Sowing Mycospawn</div>
+          <div class="c out"><span class="q">1</span>Fanatic of Rhonas</div>
+        </div>
+      </div>
+      <div class="gszrow"><span class="lbl2">GSZ finds</span>Three stacked bullets, all GSZ-reachable: Ouphe (X=2) locks Soul Cauldron and Ballista, Curator (X=2) exiles Young Wolf/Cub to break undying loops, Changeling (X=3) kills a resolved Cauldron.</div>
+      <div class="gc-note">Togores boards FoV+Dismember+Cavern; FoV maps to Ouphe/Changeling on Agatha's Soul Cauldron, the Dismember role is covered by maindeck Kozilek's Command exiling Yawgmoth (X=4), and there is no Cavern to add. The whole package is green 1-ofs — the GSZ-toolbox matchup par excellence. Cuts start from Togores (Ulamog, Mycospawn) plus one Fanatic, which dies to Ballista pings and Yawgmoth's own -1/-1 counters. Ghost Vacuum deliberately omitted: Ouphe would lock his own Vacuum.</div>
+    </div>
+
+    <div class="gc">
+      <div class="gc-head"><span class="gc-author togo">Togores</span></div>
+      <div class="gc-cols">
+        <div class="col-in"><div class="col-head">IN</div>
+          <div class="c in"><span class="qi">2 of 3</span>Force of Vigor</div>
+          <div class="c in"><span class="qi">1</span>Dismember</div>
+          <div class="c in"><span class="qi">1</span>Cavern of Souls</div>
+        </div>
+        <div class="col-out"><div class="col-head">OUT</div>
+          <div class="c out"><span class="q">1</span>Ulamog, the Ceaseless Hunger</div>
+          <div class="c out"><span class="q">1</span>Sowing Mycospawn</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="mu">
+  <div class="mu-head" onclick="this.parentElement.classList.toggle('open')">
+    <span class="mu-name">vs. GR Eldrazi Ramp</span><span class="chev">&#9660;</span>
+  </div>
+  <div class="mu-body">
+    <div class="wish"><div class="wish-row"><span class="lbl">Chalice</span><span class="cx"><i>X=0</i>0 <em>(0%)</em></span><span class="cx"><i>X=1</i>5 <em>(13%)</em></span><span class="cx"><i>X=2</i>14 <em>(37%)</em></span><span class="cx"><i>X=3</i>3 <em>(8%)</em></span><span class="wnote">of their 38 nonland spells</span></div></div>
+    <div class="gc claude">
+      <div class="gc-head"><span class="gc-author claude">Claude&rsquo;s pick &middot; your list</span><span class="conf low">LOW</span></div>
+      <div class="gc-cols">
+        <div class="col-in"><div class="col-head">IN</div>
+          <div class="c in"><span class="qi">2</span>Thought-Knot Seer</div>
+        </div>
+        <div class="col-out"><div class="col-head">OUT</div>
+          <div class="c out"><span class="q">2</span>Fanatic of Rhonas</div>
+        </div>
+      </div>
+      <div class="gszrow"><span class="lbl2">GSZ finds</span>No new bullets; GSZ default targets, but note Fanatic count drops to 2 so X=2 hits fewer live copies.</div>
+      <div class="gc-note">spike boards TKS + a Ghost Quarter for Devourer; Emerson's Ghost Quarter is already maindeck and lands are untouchable, so only the TKS half ports. TKS strips World Breaker/Emrakul/Ugin in the big-mana pseudo-mirror. Fanatic is the cut because their 2 Kozilek's Return sweep his small creatures for free and ferocious is unreliable through their removal. Emrakul stays at 4 — it is the mirror trump.</div>
+    </div>
+
+    <div class="gc">
+      <div class="gc-head"><span class="gc-author spike">aspiringspike</span></div>
+      <div class="gc-cols">
+        <div class="col-in"><div class="col-head">IN</div>
+          <div class="c in"><span class="qi">1</span>Thought-Knot Seer</div>
+          <div class="c in"><span class="qi">1</span>Ghost Quarter</div>
+        </div>
+        <div class="col-out"><div class="col-head">OUT</div>
+          <div class="c out"><span class="q">1</span>Devourer of Destiny</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="mu">
+  <div class="mu-head" onclick="this.parentElement.classList.toggle('open')">
+    <span class="mu-name">vs. Neoform</span><span class="chev">&#9660;</span>
+  </div>
+  <div class="mu-body">
+    <div class="wish"><div class="wish-row"><span class="lbl">Chalice</span><span class="cx"><i>X=0</i>7 <em>(17%)</em></span><span class="cx"><i>X=1</i>8 <em>(19%)</em></span><span class="cx"><i>X=2</i>9 <em>(21%)</em></span><span class="cx"><i>X=3</i>5 <em>(12%)</em></span><span class="wnote">of their 42 nonland spells</span></div></div>
+    <div class="gc claude">
+      <div class="gc-head"><span class="gc-author claude">Claude&rsquo;s pick &middot; your list</span><span class="conf medium">MEDIUM</span></div>
+      <div class="gc-cols">
+        <div class="col-in"><div class="col-head">IN</div>
+          <div class="c in"><span class="qi">3</span>Chalice of the Void</div>
+          <div class="c in"><span class="qi">1</span>Trinisphere</div>
+          <div class="c in"><span class="qi">2</span>Thought-Knot Seer</div>
+        </div>
+        <div class="col-out"><div class="col-head">OUT</div>
+          <div class="c out"><span class="q">2</span>Malevolent Rumble</div>
+          <div class="c out"><span class="q">2</span>Sowing Mycospawn</div>
+          <div class="c out"><span class="q">1</span>Ugin, Eye of the Storms</div>
+          <div class="c out"><span class="q">1</span>Ulamog, the Ceaseless Hunger</div>
+        </div>
+      </div>
+      <div class="gszrow"><span class="lbl2">GSZ finds</span>No green bullets needed; GSZ X=0 Arbor stays live with Chalice on 0 (stack MV 1).</div>
+      <div class="gc-note">spike's plan scaled to full counts. Chalice X=0 stops the measured 7 free spells (4 Summoner's Pact, 3 Pact of Negation) with zero self-interference — that alone breaks their T1-2 Allosaurus setup; X=2 (9 cards incl. Neoform itself) is the alternative on a second copy. Trinisphere taxes the Pacts to 3 and TKS takes Neoform/Eldritch Evolution. Watch their 4 Consign to Memory — it counters his colorless spells and triggers, so lead with green threats to bait it.</div>
+    </div>
+
+    <div class="gc">
+      <div class="gc-head"><span class="gc-author spike">aspiringspike</span></div>
+      <div class="gc-cols">
+        <div class="col-in"><div class="col-head">IN</div>
+          <div class="c in"><span class="qi">1</span>Thought-Knot Seer</div>
+          <div class="c in"><span class="qi">1</span>Chalice of the Void</div>
+          <div class="c in"><span class="qi">1</span>Trinisphere</div>
+        </div>
+        <div class="col-out"><div class="col-head">OUT</div>
+          <div class="c out"><span class="q">1</span>Sowing Mycospawn</div>
+          <div class="c out"><span class="q">1</span>Malevolent Rumble</div>
+          <div class="c out"><span class="q">1</span>Ugin, Eye of the Storms</div>
+        </div>
+      </div>
+    </div>
+<div class="gc">
+      <div class="gc-head"><span class="gc-author spike">aspiringspike (alt)</span></div>
+      <div class="gc-cols">
+        <div class="col-in"><div class="col-head">IN</div>
+          <div class="c in"><span class="qi">1</span>Trinisphere</div>
+          <div class="c in"><span class="qi">1</span>Thought-Knot Seer</div>
+        </div>
+        <div class="col-out"><div class="col-head">OUT</div>
+          <div class="c out"><span class="q">1</span>Sowing Mycospawn</div>
+          <div class="c out"><span class="q">1</span>Malevolent Rumble</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="mu">
+  <div class="mu-head" onclick="this.parentElement.classList.toggle('open')">
+    <span class="mu-name">vs. Sam Combo</span><span class="chev">&#9660;</span>
+  </div>
+  <div class="mu-body">
+    <div class="wish"><div class="wish-row"><span class="lbl">Chalice</span><span class="cx"><i>X=0</i>0 <em>(0%)</em></span><span class="cx"><i>X=1</i>15 <em>(39%)</em></span><span class="cx"><i>X=2</i>15 <em>(39%)</em></span><span class="cx"><i>X=3</i>7 <em>(18%)</em></span><span class="wnote">of their 38 nonland spells</span></div></div>
+    <div class="gc claude">
+      <div class="gc-head"><span class="gc-author claude">Claude&rsquo;s pick &middot; your list</span><span class="conf medium">MEDIUM</span></div>
+      <div class="gc-cols">
+        <div class="col-in"><div class="col-head">IN</div>
+          <div class="c in"><span class="qi">3</span>Chalice of the Void</div>
+          <div class="c in"><span class="qi">2</span>Thought-Knot Seer</div>
+          <div class="c in"><span class="qi">1</span>Keen-Eyed Curator</div>
+        </div>
+        <div class="col-out"><div class="col-head">OUT</div>
+          <div class="c out"><span class="q">3</span>Sowing Mycospawn</div>
+          <div class="c out"><span class="q">2</span>Malevolent Rumble</div>
+          <div class="c out"><span class="q">1</span>Ulamog, the Ceaseless Hunger</div>
+        </div>
+      </div>
+      <div class="gszrow"><span class="lbl2">GSZ finds</span>Curator at X=2 exiles Cauldron Familiar from the graveyard on {1} — the actual loop-breaker, since the cat re-enters via a Food-sac ability that Chalice can never touch.</div>
+      <div class="gc-note">Togores boards TKS+Dismember for 3 Mycospawn (explicitly not FoV/Endurance); TKS ports and the removal slot becomes Chalice, which the measured counts justify: X=1 stops 15 of 38 (Goose, Ajani, Young Wolf, Feeder, Seer, and Familiars cast from hand). Rules point: the Familiar loop returns the cat by sacrificing a Food — an ability, not a cast — so Chalice slows their setup but never stops the loop itself; Curator is the piece that does, and Curator over Ghost Vacuum on purpose since Vacuum (MV1) dies to his own Chalice on 1. Footnote: Chalice on 1 also turns off his own GSZ X=0 Arbor line.</div>
+    </div>
+
+    <div class="gc">
+      <div class="gc-head"><span class="gc-author togo">Togores</span></div>
+      <div class="gc-cols">
+        <div class="col-in"><div class="col-head">IN</div>
+          <div class="c in"><span class="qi">1</span>Thought-Knot Seer</div>
+          <div class="c in"><span class="qi">1</span>Dismember</div>
+        </div>
+        <div class="col-out"><div class="col-head">OUT</div>
+          <div class="c out"><span class="q">3 of 4</span>Sowing Mycospawn</div>
+        </div>
+      </div>
+      <div class="gc-note">NOT Force of Vigor or Endurance</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
