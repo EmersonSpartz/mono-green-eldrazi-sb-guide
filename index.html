@@ -23,6 +23,7 @@ body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; backg
 .gc-author { font-size:12px; font-weight:600; }
 .gc-author.sic { color:#58c8b0; } .gc-author.togo { color:#e07040; } .gc-author.mike { color:#7090d8; }
 .gc-author.spike { color:#d878a8; } .gc-author.mengu { color:#d4a040; } .gc-author.claude { color:#9ade7a; }
+.gc-author.grid { color:#b8b8b8; }
 .gc.claude { border:1px solid #2c4820; background:#121c0e; }
 .gc.claude .gc-head { background:#17280f; }
 .gc-cols { display:grid; grid-template-columns:1fr 1fr; gap:8px; padding:9px 11px; }
@@ -59,7 +60,7 @@ body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; backg
 <body>
 <div class="top-bar">
   <h1>Mono-Green Eldrazi Ramp SB Guide</h1>
-  <div class="subtitle">"Trudge Match" list &middot; sicsmoo / Togores / Mikedevo / aspiringspike / Mengucci + Claude's picks</div>
+  <div class="subtitle">"Trudge Match" list &middot; sicsmoo / Togores / Mikedevo / aspiringspike / Mengucci / Grid + Claude's picks</div>
 </div>
 <div class="banner"><b style="color:#7ec06a;">Your board is a GSZ toolbox</b> — a green 1-of boarded IN becomes findable by all 4 Green Sun's Zeniths (one copy plays like five). TKS and Sire are NOT green: GSZ can't find them. Author plans below use THEIR boards (sicsmoo runs Force of Vigor/Endurance/Dismember — you don't); Claude's picks translate the consensus to your exact 15. Chalice counts measured from 3 current verified lists per matchup. Matchup guides for this deck's play patterns: <a href="https://emersonspartz.github.io/trudge-rigging-guide/" style="color:#9ade7a;">trudge-rigging-guide</a>.</div>
 
@@ -166,7 +167,21 @@ body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; backg
       </div>
       <div class="gc-note">NO Disenchant effects</div>
     </div>
-  </div>
+  <div class="gc">
+      <div class="gc-head"><span class="gc-author grid">Grid (unattributed &mdash; different list: runs Drowner/Cavern, 1+1 Ugin &amp; Sire)</span></div>
+      <div class="gc-cols">
+        <div class="col-in"><div class="col-head">IN</div>
+          <div class="c in"><span class="qi">1</span>Sire of Seven Deaths</div>
+          <div class="c in"><span class="qi">1</span>Ugin, Eye of the Storms</div>
+          <div class="c in"><span class="qi">1</span>Dismember</div>
+        </div>
+        <div class="col-out"><div class="col-head">OUT</div>
+          <div class="c out"><span class="q">3</span>Sowing Mycospawn</div>
+        </div>
+      </div>
+    </div>
+
+    </div>
 </div>
 <div class="mu">
   <div class="mu-head" onclick="this.parentElement.classList.toggle('open')">
@@ -219,7 +234,26 @@ body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; backg
       </div>
       <div class="gc-note">On the draw: also IN Gemstone Caverns / OUT Mosswort Bridge</div>
     </div>
-  </div>
+  <div class="gc">
+      <div class="gc-head"><span class="gc-author grid">Grid (unattributed &mdash; different list: runs Drowner/Cavern, 1+1 Ugin &amp; Sire)</span></div>
+      <div class="gc-cols">
+        <div class="col-in"><div class="col-head">IN</div>
+          <div class="c in"><span class="qi">2</span>Thought-Knot Seer</div>
+          <div class="c in"><span class="qi">2</span>Endurance</div>
+          <div class="c in"><span class="qi">1</span>Ugin, Eye of the Storms</div>
+          <div class="c in"><span class="qi">1</span>Dismember</div>
+        </div>
+        <div class="col-out"><div class="col-head">OUT</div>
+          <div class="c out"><span class="q">1</span>Slumbering Trudge</div>
+          <div class="c out"><span class="q">1</span>Sowing Mycospawn</div>
+          <div class="c out"><span class="q">2</span>Emrakul, the Promised End</div>
+          <div class="c out"><span class="q">1</span>Fight Rigging</div>
+          <div class="c out"><span class="q">1</span>Sire of Seven Deaths</div>
+        </div>
+      </div>
+    </div>
+
+    </div>
 </div>
 <div class="mu">
   <div class="mu-head" onclick="this.parentElement.classList.toggle('open')">
@@ -285,7 +319,24 @@ body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; backg
       </div>
       <div class="gc-note">his list runs Devourer</div>
     </div>
-  </div>
+  <div class="gc">
+      <div class="gc-head"><span class="gc-author grid">Grid (unattributed &mdash; different list: runs Drowner/Cavern, 1+1 Ugin &amp; Sire)</span></div>
+      <div class="gc-cols">
+        <div class="col-in"><div class="col-head">IN</div>
+          <div class="c in"><span class="qi">3</span>Chalice of the Void</div>
+          <div class="c in"><span class="qi">3</span>Force of Vigor</div>
+          <div class="c in"><span class="qi">1</span>Dismember</div>
+        </div>
+        <div class="col-out"><div class="col-head">OUT</div>
+          <div class="c out"><span class="q">3</span>Sowing Mycospawn</div>
+          <div class="c out"><span class="q">2</span>Ulamog, the Ceaseless Hunger</div>
+          <div class="c out"><span class="q">1</span>Ugin, Eye of the Storms</div>
+          <div class="c out"><span class="q">1</span>Sire of Seven Deaths</div>
+        </div>
+      </div>
+    </div>
+
+    </div>
 </div>
 <div class="mu">
   <div class="mu-head" onclick="this.parentElement.classList.toggle('open')">
@@ -324,7 +375,26 @@ body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; backg
         </div>
       </div>
     </div>
-  </div>
+  <div class="gc">
+      <div class="gc-head"><span class="gc-author grid">Grid (unattributed &mdash; different list: runs Drowner/Cavern, 1+1 Ugin &amp; Sire)</span></div>
+      <div class="gc-cols">
+        <div class="col-in"><div class="col-head">IN</div>
+          <div class="c in"><span class="qi">3</span>Chalice of the Void</div>
+          <div class="c in"><span class="qi">2</span>Trinisphere</div>
+          <div class="c in"><span class="qi">2</span>Thought-Knot Seer</div>
+          <div class="c in"><span class="qi">2</span>Endurance</div>
+        </div>
+        <div class="col-out"><div class="col-head">OUT</div>
+          <div class="c out"><span class="q">1</span>Cavern of Souls</div>
+          <div class="c out"><span class="q">4</span>Sowing Mycospawn</div>
+          <div class="c out"><span class="q">2</span>Ulamog, the Ceaseless Hunger</div>
+          <div class="c out"><span class="q">1</span>Ugin, Eye of the Storms</div>
+          <div class="c out"><span class="q">1</span>Sire of Seven Deaths</div>
+        </div>
+      </div>
+    </div>
+
+    </div>
 </div>
 <div class="mu">
   <div class="mu-head" onclick="this.parentElement.classList.toggle('open')">
@@ -397,7 +467,24 @@ body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; backg
         </div>
       </div>
     </div>
-  </div>
+  <div class="gc">
+      <div class="gc-head"><span class="gc-author grid">Grid (unattributed &mdash; different list: runs Drowner/Cavern, 1+1 Ugin &amp; Sire)</span></div>
+      <div class="gc-cols">
+        <div class="col-in"><div class="col-head">IN</div>
+          <div class="c in"><span class="qi">3</span>Chalice of the Void</div>
+          <div class="c in"><span class="qi">2</span>Trinisphere</div>
+          <div class="c in"><span class="qi">1</span>Sire of Seven Deaths</div>
+          <div class="c in"><span class="qi">1</span>Ugin, Eye of the Storms</div>
+        </div>
+        <div class="col-out"><div class="col-head">OUT</div>
+          <div class="c out"><span class="q">1</span>Dryad Arbor</div>
+          <div class="c out"><span class="q">4</span>Sowing Mycospawn</div>
+          <div class="c out"><span class="q">2</span>Emrakul, the Promised End</div>
+        </div>
+      </div>
+    </div>
+
+    </div>
 </div>
 <div class="mu">
   <div class="mu-head" onclick="this.parentElement.classList.toggle('open')">
@@ -596,7 +683,23 @@ body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; backg
       </div>
       <div class="gc-note">On the draw: also IN Gemstone Caverns / OUT Mosswort Bridge</div>
     </div>
-  </div>
+  <div class="gc">
+      <div class="gc-head"><span class="gc-author grid">Grid (unattributed &mdash; different list: runs Drowner/Cavern, 1+1 Ugin &amp; Sire)</span></div>
+      <div class="gc-cols">
+        <div class="col-in"><div class="col-head">IN</div>
+          <div class="c in"><span class="qi">2</span>Thought-Knot Seer</div>
+          <div class="c in"><span class="qi">1</span>Sire of Seven Deaths</div>
+          <div class="c in"><span class="qi">1</span>Ugin, Eye of the Storms</div>
+          <div class="c in"><span class="qi">1</span>Dismember</div>
+        </div>
+        <div class="col-out"><div class="col-head">OUT</div>
+          <div class="c out"><span class="q">3</span>Sowing Mycospawn</div>
+          <div class="c out"><span class="q">2</span>Emrakul, the Promised End</div>
+        </div>
+      </div>
+    </div>
+
+    </div>
 </div>
 <div class="mu">
   <div class="mu-head" onclick="this.parentElement.classList.toggle('open')">
@@ -707,7 +810,19 @@ body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; backg
       </div>
       <div class="gc-note">No changes</div>
     </div>
-  </div>
+  <div class="gc">
+      <div class="gc-head"><span class="gc-author grid">Grid (unattributed &mdash; different list: runs Drowner/Cavern, 1+1 Ugin &amp; Sire)</span></div>
+      <div class="gc-cols">
+        <div class="col-in"><div class="col-head">IN</div>
+          <div class="c in"><span class="qi">2</span>Thought-Knot Seer</div>
+        </div>
+        <div class="col-out"><div class="col-head">OUT</div>
+          <div class="c out"><span class="q">2</span>Fight Rigging</div>
+        </div>
+      </div>
+    </div>
+
+    </div>
 </div>
 <div class="mu">
   <div class="mu-head" onclick="this.parentElement.classList.toggle('open')">
@@ -781,7 +896,20 @@ body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; backg
         </div>
       </div>
     </div>
-  </div>
+  <div class="gc">
+      <div class="gc-head"><span class="gc-author grid">Grid (unattributed &mdash; different list: runs Drowner/Cavern, 1+1 Ugin &amp; Sire)</span></div>
+      <div class="gc-cols">
+        <div class="col-in"><div class="col-head">IN</div>
+          <div class="c in"><span class="qi">2</span>Thought-Knot Seer</div>
+        </div>
+        <div class="col-out"><div class="col-head">OUT</div>
+          <div class="c out"><span class="q">1</span>Ugin, Eye of the Storms</div>
+          <div class="c out"><span class="q">1</span>Sire of Seven Deaths</div>
+        </div>
+      </div>
+    </div>
+
+    </div>
 </div>
 <div class="mu">
   <div class="mu-head" onclick="this.parentElement.classList.toggle('open')">
@@ -875,6 +1003,191 @@ body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; backg
       </div>
       <div class="gc-note">NOT Force of Vigor or Endurance</div>
     </div>
+  </div>
+</div>
+
+<div class="mu">
+  <div class="mu-head" onclick="this.parentElement.classList.toggle('open')">
+    <span class="mu-name">vs. Belcher</span><span class="chev">&#9660;</span>
+  </div>
+  <div class="mu-body">
+    <div class="wish"><div class="wish-row"><span class="lbl">Chalice</span><span class="cx"><i>X=0</i>4 <em>(11%)</em></span><span class="cx"><i>X=1</i>8 <em>(22%)</em></span><span class="cx"><i>X=2</i>8 <em>(22%)</em></span><span class="cx"><i>X=3</i>12 <em>(33%)</em></span><span class="wnote">of their 36 nonland spells</span></div></div>
+    <div class="gc claude">
+      <div class="gc-head"><span class="gc-author claude">Claude&rsquo;s pick &middot; your list</span><span class="conf high">HIGH</span></div>
+      <div class="gc-cols">
+        <div class="col-in"><div class="col-head">IN</div>
+          <div class="c in"><span class="qi">3</span>Chalice of the Void</div>
+          <div class="c in"><span class="qi">3</span>Thought-Knot Seer</div>
+          <div class="c in"><span class="qi">1</span>Collector Ouphe</div>
+          <div class="c in"><span class="qi">1</span>Keen-Eyed Curator</div>
+        </div>
+        <div class="col-out"><div class="col-head">OUT</div>
+          <div class="c out"><span class="q">4</span>Sowing Mycospawn</div>
+          <div class="c out"><span class="q">2</span>Ulamog, the Ceaseless Hunger</div>
+          <div class="c out"><span class="q">1</span>Ugin, Eye of the Storms</div>
+          <div class="c out"><span class="q">1</span>Turntimber Symbiosis</div>
+        </div>
+      </div>
+      <div class="gszrow"><span class="lbl2">GSZ finds</span>GSZ X=2 is the headline: Collector Ouphe (virtual copies 2-5) is a Null Rod — Charbelcher can't activate and Lotus Bloom can't make mana. X=2 also fetches Keen-Eyed Curator to eat Tameshi's Lotus/Belcher recursion out of the yard for {1} a shot. GSZ on the stack is MV X+1, so your own Chalice@1 never catches an X&gt;=1 Zenith.</div>
+      <div class="gc-note">Measured Chalice buckets (36 spells, 3 lists): X=0 stops 4 (all Lotus Bloom — no mana cost, so suspend casts are MV 0) and is itself a free turn-1 play with zero self-interference; second Chalice goes on 1 (stops 8: Jwari/Snare/Scolding/Serenade), never 3, which would eat your own Fight Rigging. Curator over Ghost Vacuum because Vacuum's exile is an artifact activated ability — dead under your own Ouphe. Emrakul stays, but NOT for protection: protection from instants works only on the battlefield, so the spell CAN be countered — the real point is the cast trigger (Mindslaver turn) resolves even if Emrakul is countered, and Force of Negation can't target a creature spell anyway; all 3 TKS come in to take Belcher/Sea Gate Restoration first, and Turntimber (7-mana sorcery) is the extra cut beyond the grid's 7. Optional vs the counter-dense list: 2 Trinisphere over TKS #3 + Curator (taxes pitch-cast Force of Negation/Shoal to 3 real mana).</div>
+    </div>
+
+    <div class="gc">
+      <div class="gc-head"><span class="gc-author grid">Grid (unattributed &mdash; different list: runs Drowner/Cavern, 1+1 Ugin &amp; Sire)</span></div>
+      <div class="gc-cols">
+        <div class="col-in"><div class="col-head">IN</div>
+          <div class="c in"><span class="qi">3</span>Chalice of the Void</div>
+          <div class="c in"><span class="qi">2</span>Thought-Knot Seer</div>
+          <div class="c in"><span class="qi">2</span>Endurance</div>
+        </div>
+        <div class="col-out"><div class="col-head">OUT</div>
+          <div class="c out"><span class="q">4</span>Sowing Mycospawn</div>
+          <div class="c out"><span class="q">2</span>Ulamog, the Ceaseless Hunger</div>
+          <div class="c out"><span class="q">1</span>Ugin, Eye of the Storms</div>
+        </div>
+      </div>
+    </div>
+
+    
+  </div>
+</div>
+
+<div class="mu">
+  <div class="mu-head" onclick="this.parentElement.classList.toggle('open')">
+    <span class="mu-name">vs. Burn</span><span class="chev">&#9660;</span>
+  </div>
+  <div class="mu-body">
+    <div class="wish"><div class="wish-row"><span class="lbl">Chalice</span><span class="cx"><i>X=0</i>0 <em>(0%)</em></span><span class="cx"><i>X=1</i>21 <em>(52%)</em></span><span class="cx"><i>X=2</i>12 <em>(30%)</em></span><span class="cx"><i>X=3</i>5 <em>(12%)</em></span><span class="wnote">of their 40 nonland spells</span></div></div>
+    <div class="gc claude">
+      <div class="gc-head"><span class="gc-author claude">Claude&rsquo;s pick &middot; your list</span><span class="conf high">HIGH</span></div>
+      <div class="gc-cols">
+        <div class="col-in"><div class="col-head">IN</div>
+          <div class="c in"><span class="qi">3</span>Chalice of the Void</div>
+          <div class="c in"><span class="qi">2</span>Thought-Knot Seer</div>
+          <div class="c in"><span class="qi">1</span>Sire of Seven Deaths</div>
+          <div class="c in"><span class="qi">1</span>Elder Gargaroth</div>
+          <div class="c in"><span class="qi">1</span>Chomping Changeling</div>
+        </div>
+        <div class="col-out"><div class="col-head">OUT</div>
+          <div class="c out"><span class="q">4</span>Sowing Mycospawn</div>
+          <div class="c out"><span class="q">4</span>Emrakul, the Promised End</div>
+        </div>
+      </div>
+      <div class="gszrow"><span class="lbl2">GSZ finds</span>GSZ X=3 finds Chomping Changeling to snipe Eidolon of the Great Revel (enchantment creature, in 2 of 3 lists) or Seal of Fire (list 2); X=5 finds Elder Gargaroth, the single best stabilizer they can barely kill. Never cast GSZ at X=0 once your Chalice@1 is down (stack MV would be 1).</div>
+      <div class="gc-note">Chalice@1 is the whole plan: measured 21 of 40 spells across the 3 lists (Bolt, Lava Spike, Boltwave, Guide, Swiftspear) — but Rift Bolt and Skewer the Critics are MV 3, not 1: suspend and spectacle are alternative costs and don't change mana value, so Chalice@1 never stops them. Second Chalice on 2 stops Boros Charm/Helix/Eidolon but also your own Rumble, Fanatic, and X=0 Kozilek's Command (X&gt;=1 dodges) — only set 2 late. Gargaroth + Changeling translate the grid's 2 Endurance + extra Ugin, which your 15 lacks, and both are GSZ-findable; Sire's ward 'pay 7 life' plus lifelink is functionally hexproof against Burn. Mycospawn and Emrakul do nothing before their turn-4 kill; Ulamog/Ugin stay as Fight Rigging hits (the grid also trimmed 1 Ulamog — keeping it is the one deliberate divergence).</div>
+    </div>
+
+    <div class="gc">
+      <div class="gc-head"><span class="gc-author grid">Grid (unattributed &mdash; different list: runs Drowner/Cavern, 1+1 Ugin &amp; Sire)</span></div>
+      <div class="gc-cols">
+        <div class="col-in"><div class="col-head">IN</div>
+          <div class="c in"><span class="qi">3</span>Chalice of the Void</div>
+          <div class="c in"><span class="qi">2</span>Thought-Knot Seer</div>
+          <div class="c in"><span class="qi">1</span>Sire of Seven Deaths</div>
+          <div class="c in"><span class="qi">2</span>Endurance</div>
+          <div class="c in"><span class="qi">1</span>Ugin, Eye of the Storms</div>
+        </div>
+        <div class="col-out"><div class="col-head">OUT</div>
+          <div class="c out"><span class="q">4</span>Sowing Mycospawn</div>
+          <div class="c out"><span class="q">1</span>Ulamog, the Ceaseless Hunger</div>
+          <div class="c out"><span class="q">4</span>Emrakul, the Promised End</div>
+        </div>
+      </div>
+    </div>
+
+    
+  </div>
+</div>
+
+<div class="mu">
+  <div class="mu-head" onclick="this.parentElement.classList.toggle('open')">
+    <span class="mu-name">vs. Hollow One</span><span class="chev">&#9660;</span>
+  </div>
+  <div class="mu-body">
+    <div class="wish"><div class="wish-row"><span class="lbl">Chalice</span><span class="cx"><i>X=0</i>0 <em>(0%)</em></span><span class="cx"><i>X=1</i>19 <em>(45%)</em></span><span class="cx"><i>X=2</i>4 <em>(10%)</em></span><span class="cx"><i>X=3</i>6 <em>(14%)</em></span><span class="wnote">of their 42 nonland spells</span></div></div>
+    <div class="gc claude">
+      <div class="gc-head"><span class="gc-author claude">Claude&rsquo;s pick &middot; your list</span><span class="conf medium">MEDIUM</span></div>
+      <div class="gc-cols">
+        <div class="col-in"><div class="col-head">IN</div>
+          <div class="c in"><span class="qi">3</span>Chalice of the Void</div>
+          <div class="c in"><span class="qi">2</span>Ghost Vacuum</div>
+          <div class="c in"><span class="qi">1</span>Keen-Eyed Curator</div>
+          <div class="c in"><span class="qi">1</span>Chomping Changeling</div>
+          <div class="c in"><span class="qi">1</span>Elder Gargaroth</div>
+          <div class="c in"><span class="qi">1</span>Sire of Seven Deaths</div>
+        </div>
+        <div class="col-out"><div class="col-head">OUT</div>
+          <div class="c out"><span class="q">4</span>Sowing Mycospawn</div>
+          <div class="c out"><span class="q">4</span>Emrakul, the Promised End</div>
+          <div class="c out"><span class="q">1</span>Turntimber Symbiosis</div>
+        </div>
+      </div>
+      <div class="gszrow"><span class="lbl2">GSZ finds</span>GSZ X=2 for Keen-Eyed Curator: repeatable {1}: exile from graveyards on a green body — hold the activation and eat Vengevine in response to its return trigger, exile Detective's Phoenix and Ox of Agonas on sight. X=3 Changeling destroys a Hollow One (artifact creature). X=5 Gargaroth walls the board.</div>
+      <div class="gc-note">Grid's plan leans on 3 Force of Vigor you don't own; Chalice@1 attacks the same engine from the stack — measured 19 of 42 (Faithless Looting including flashback, Burning Inquiry, madness Rootwalla: neither flashback nor madness changes MV), while Chalice@0 stops nothing since cost-reduced Hollow Ones are still MV 5. SEQUENCING: cast both Ghost Vacuums (MV 1) before Chalice goes to 1, and remember Vacuum's {T} ability is instant-speed exile for Vengevine/Phoenix triggers. Kozilek's Command X=4 exiles Vengevine and stacks the graveyard-exile mode; Sire + Gargaroth translate the grid's Sire + 2 Endurance, and Turntimber is the extra cut — a 7-mana sorcery is far too slow here, worse with all 4 Emrakul gone. Medium confidence because Chalice-for-FoV is a genuine deviation from the grid, not a role swap — but with zero FoV in the 15 it's the best available pressure.</div>
+    </div>
+
+    <div class="gc">
+      <div class="gc-head"><span class="gc-author grid">Grid (unattributed &mdash; different list: runs Drowner/Cavern, 1+1 Ugin &amp; Sire)</span></div>
+      <div class="gc-cols">
+        <div class="col-in"><div class="col-head">IN</div>
+          <div class="c in"><span class="qi">3</span>Force of Vigor</div>
+          <div class="c in"><span class="qi">1</span>Sire of Seven Deaths</div>
+          <div class="c in"><span class="qi">2</span>Endurance</div>
+          <div class="c in"><span class="qi">1</span>Ugin, Eye of the Storms</div>
+          <div class="c in"><span class="qi">1</span>Dismember</div>
+        </div>
+        <div class="col-out"><div class="col-head">OUT</div>
+          <div class="c out"><span class="q">4</span>Sowing Mycospawn</div>
+          <div class="c out"><span class="q">4</span>Emrakul, the Promised End</div>
+        </div>
+      </div>
+    </div>
+
+    
+  </div>
+</div>
+
+<div class="mu">
+  <div class="mu-head" onclick="this.parentElement.classList.toggle('open')">
+    <span class="mu-name">vs. Esper / Azorius Blink</span><span class="chev">&#9660;</span>
+  </div>
+  <div class="mu-body">
+    <div class="wish"><div class="wish-row"><span class="lbl">Chalice</span><span class="cx"><i>X=0</i>0 <em>(0%)</em></span><span class="cx"><i>X=1</i>12 <em>(33%)</em></span><span class="cx"><i>X=2</i>7 <em>(19%)</em></span><span class="cx"><i>X=3</i>5 <em>(14%)</em></span><span class="wnote">of their 36 nonland spells</span></div></div>
+    <div class="gc claude">
+      <div class="gc-head"><span class="gc-author claude">Claude&rsquo;s pick &middot; your list</span><span class="conf high">HIGH</span></div>
+      <div class="gc-cols">
+        <div class="col-in"><div class="col-head">IN</div>
+          <div class="c in"><span class="qi">3</span>Thought-Knot Seer</div>
+          <div class="c in"><span class="qi">1</span>Elder Gargaroth</div>
+        </div>
+        <div class="col-out"><div class="col-head">OUT</div>
+          <div class="c out"><span class="q">2</span>Slumbering Trudge</div>
+          <div class="c out"><span class="q">1</span>Sowing Mycospawn</div>
+          <div class="c out"><span class="q">1</span>Fight Rigging</div>
+        </div>
+      </div>
+      <div class="gszrow"><span class="lbl2">GSZ finds</span>GSZ X=5 for Elder Gargaroth is the grind engine — a 3/3, 3 life, or a card whenever it attacks or blocks, so it beats one-for-one removal and Ephemerate blocks on value. Early GSZ is X=2 for Fanatic (it's MV 2 — X=1 finds only Slumbering Trudge); no Chalice in this matchup, so X is otherwise unconstrained.</div>
+      <div class="gc-note">Near-mirror of the grid's tight 4-for-4 (all 3 verified Blink lists identical). TKS #3 covers their Ugin slot (strips Solitude/Teferi/Ephemerate); your Dismember is maindeck Kozilek's Command — X=2 exiles Phelia or Emperor of Bones at instant speed, though Teferi, Time Raveler forces it to sorcery speed: answer him with the cast trigger on your 2 maindeck Ugins, which repeats on every colorless spell you cast. Grid's 4th cut was a maindeck Sire you don't run, so cut the 2nd Trudge instead — a stunned vanilla beater is the worst card into 4 Fatal Push + 4 Solitude. Skip Chalice like the grid (12/36 at X=1, but Witch Enchanter, Teferi bounce, and Prismatic Ending all answer it) and leave Sire in the board per the grid.</div>
+    </div>
+
+    <div class="gc">
+      <div class="gc-head"><span class="gc-author grid">Grid (unattributed &mdash; different list: runs Drowner/Cavern, 1+1 Ugin &amp; Sire)</span></div>
+      <div class="gc-cols">
+        <div class="col-in"><div class="col-head">IN</div>
+          <div class="c in"><span class="qi">2</span>Thought-Knot Seer</div>
+          <div class="c in"><span class="qi">1</span>Ugin, Eye of the Storms</div>
+          <div class="c in"><span class="qi">1</span>Dismember</div>
+        </div>
+        <div class="col-out"><div class="col-head">OUT</div>
+          <div class="c out"><span class="q">1</span>Slumbering Trudge</div>
+          <div class="c out"><span class="q">1</span>Sowing Mycospawn</div>
+          <div class="c out"><span class="q">1</span>Fight Rigging</div>
+          <div class="c out"><span class="q">1</span>Sire of Seven Deaths</div>
+        </div>
+      </div>
+    </div>
+
+    
   </div>
 </div>
 
